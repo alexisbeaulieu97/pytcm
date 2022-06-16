@@ -1,0 +1,9 @@
+.vscode
+.coverage
+.vscode
+*.egg-info
+*.pyc
+*.log
+.DS_Store
+dist/
+coverage.xml
