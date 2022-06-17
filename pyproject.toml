@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytcm"
-version = "0.2.0"
+version = "0.2.1"
 description = "pytcm - Python Terminal Commands Manager"
 authors = ["Alexis Beaulieu <alexisbeaulieu97@gmail.com>"]
 readme = "README.md"
