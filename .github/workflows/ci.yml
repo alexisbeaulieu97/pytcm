@@ -16,37 +16,11 @@ on:
       - "*.md"
 
 jobs:
-  dependencies:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.9"]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install poetry
-        run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-          echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: poetry
-
-      - name: Install dependencies
-        run: |
-          poetry env use ${{ matrix.python-version }}
-          poetry install
-
   quality-check:
-    needs: dependencies
     runs-on: ubuntu-latest
     steps:
+      - uses: ./.github/workflows/setup_poetry.yml
+
       - name: Lint with flake8
         run: |
           poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -56,12 +30,12 @@ jobs:
         run: poetry run pytest -vvv --cov=pytcm --cov-report=term
 
   publish:
-    needs:
-      - dependencies
-      - quality-check
+    needs: quality-check
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     steps:
+      - uses: ./.github/workflows/setup_poetry.yml
+
       - name: Publish using semantic-release
         run: |
           git config --global user.name "github-actions"
