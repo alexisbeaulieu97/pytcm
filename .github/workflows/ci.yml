@@ -16,13 +16,17 @@ on:
       - "*.md"
 
 jobs:
-  quality-check:
+  install-poetry:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-python@v3
         with:
           python-version: 3.9
+          cache: poetry
 
       - name: Update pip
         run: python -m pip install --upgrade pip
@@ -35,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
       - name: Lint with flake8
         run: |
           poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -48,24 +55,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v3
-        with:
-          python-version: 3.9
-
-      - name: Update pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install and configure Poetry
-        run: |
-          pip install poetry
-          poetry config virtualenvs.create false
-
-      - name: Install dependencies
-        run: poetry install
-
       - name: Publish using semantic-release
         run: |
           git config --global user.name "github-actions"
