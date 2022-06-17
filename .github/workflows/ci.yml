@@ -18,6 +18,10 @@ on:
 jobs:
   dependencies:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,13 +32,16 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
           echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
 
-      - uses: actions/setup-python@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
           cache: poetry
 
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry env use ${{ matrix.python-version }}
+          poetry install
 
   quality-check:
     needs: dependencies
