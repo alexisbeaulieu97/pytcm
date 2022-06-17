@@ -1,0 +1,23 @@
+name: Setup Poetry
+description: Installs and sets up Poetry
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install poetry
+      run: |
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+        echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: poetry
+
+    - name: Install dependencies
+      run: |
+        poetry env use ${{ matrix.python-version }}
+        poetry install
+      shell: bash
