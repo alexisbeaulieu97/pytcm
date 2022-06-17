@@ -40,6 +40,7 @@ jobs:
         run: poetry install
 
   quality-check:
+    needs: install-poetry
     runs-on: ubuntu-latest
     steps:
       - name: Lint with flake8
@@ -51,7 +52,9 @@ jobs:
         run: poetry run pytest -vvv --cov=pytcm --cov-report=term
 
   publish:
-    needs: quality-check
+    needs:
+      - install-poetry
+      - quality-check
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     steps:
