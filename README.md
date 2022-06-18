@@ -45,6 +45,60 @@ print(cmd.err)  # ""
 print(cmd.returncode)  # 0
 ```
 
+## Options
+
+### Flag
+
+A boolean option
+
+```python
+import pytcm
+
+flag = pytcm.Flag("--verbose", True)
+opt = flag.parse()
+
+print(opt)  # "--verbose"
+```
+
+### Explicit
+
+An option with an equal sign
+
+```python
+import pytcm
+
+explicit = pytcm.Explicit("--age", 12)
+opt = explicit.parse()
+
+print(opt)  # "--age=12"
+```
+
+### Implicit
+
+An option separated by a space character
+
+```python
+import pytcm
+
+implicit = pytcm.Implicit("--age", 12)
+opt = implicit.parse()
+
+print(opt)  # "--age 12"
+```
+
+### Positional
+
+A simple inline option
+
+```python
+import pytcm
+
+positional = pytcm.Positional("test.txt")
+opt = positional.parse()
+
+print(opt)  # "test.txt"
+```
+
 ## Contributing
 
 Thank you for considering making pytcm better.
