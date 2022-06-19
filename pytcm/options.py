@@ -26,7 +26,7 @@ class Flag:
 
 @dataclass
 class Positional:
-    """An simple inline option
+    """A simple inline option
 
     e.g.: example.txt
     """
