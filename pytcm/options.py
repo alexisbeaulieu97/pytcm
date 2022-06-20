@@ -18,7 +18,7 @@ class Flag:
     """
 
     abbreviation: str
-    value: bool = False
+    value: bool = True
 
     def parse(self) -> str:
         return self.abbreviation if self.value else ""
@@ -31,7 +31,7 @@ class Positional:
     e.g.: example.txt
     """
 
-    value: str = ""
+    value: str
 
     def parse(self) -> str:
         return self.value
