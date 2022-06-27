@@ -32,7 +32,7 @@ class Flag(Option):
 
 
 @dataclass
-class Positional:
+class Positional(Option):
     """A simple inline option
 
     e.g.: example.txt
@@ -43,7 +43,7 @@ class Positional:
 
 
 @dataclass
-class Implicit:
+class Implicit(Option):
     """An option separated by a space character
 
     e.g.: --exclude example.txt
@@ -57,7 +57,7 @@ class Implicit:
 
 
 @dataclass
-class Explicit:
+class Explicit(Option):
     """An option with an equal sign
 
     e.g.: --exclude=example.txt
