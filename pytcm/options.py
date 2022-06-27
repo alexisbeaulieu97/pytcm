@@ -1,27 +1,34 @@
 # -*- coding: utf-8 -*-
 
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Protocol
 
 
-class Option(Protocol):
+class Option(ABC):
+    def __init__(self, value: any = ...) -> None:
+        self.value = value
+
     def parse(self) -> str:
-        ...
+        return "" if self.value is ... else str(self)
+
+    @abstractmethod
+    def __str__(self) -> str:
+        raise NotImplementedError
 
 
-@dataclass
-class Flag:
+class Flag(Option):
     """A boolean option
 
     e.g.: --verbose
     """
 
-    abbreviation: str
-    value: bool = True
+    def __init__(self, abbreviation: str, value: any = ...) -> None:
+        self.abbreviation = abbreviation
+        super().__init__(value)
 
-    def parse(self) -> str:
-        return self.abbreviation if self.value else ""
+    def __str__(self) -> str:
+        return self.abbreviation
 
 
 @dataclass
@@ -31,9 +38,7 @@ class Positional:
     e.g.: example.txt
     """
 
-    value: str
-
-    def parse(self) -> str:
+    def __str__(self) -> str:
         return self.value
 
 
@@ -47,7 +52,7 @@ class Implicit:
     abbreviation: str
     value: str
 
-    def parse(self) -> str:
+    def __str__(self) -> str:
         return f"{self.abbreviation} {self.value}"
 
 
@@ -61,5 +66,5 @@ class Explicit:
     abbreviation: str
     value: str
 
-    def parse(self) -> str:
+    def __str__(self) -> str:
         return f"{self.abbreviation}={self.value}"

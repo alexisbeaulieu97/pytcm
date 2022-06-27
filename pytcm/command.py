@@ -23,7 +23,7 @@ class Command:
                 path to the directory where the command is executed
         """
         self._binary = binary
-        self._opts = deepcopy(opts) if opts != ... else []
+        self._opts = opts if opts != ... else []
         self._cwd = cwd if cwd != ... else os.getcwd()
         self._out = None
         self._err = None
