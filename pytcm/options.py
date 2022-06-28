@@ -23,9 +23,12 @@ class Flag(Option):
     e.g.: --verbose
     """
 
-    def __init__(self, abbreviation: str, value: any = ...) -> None:
+    def __init__(self, abbreviation: str, value: bool = False) -> None:
         self.abbreviation = abbreviation
         super().__init__(value)
+
+    def parse(self) -> str:
+        return str(self) if self.value else ""
 
     def __str__(self) -> str:
         return self.abbreviation
@@ -37,6 +40,7 @@ class Positional(Option):
 
     e.g.: example.txt
     """
+    value: str = ...
 
     def __str__(self) -> str:
         return self.value
@@ -50,7 +54,7 @@ class Implicit(Option):
     """
 
     abbreviation: str
-    value: str
+    value: str = ...
 
     def __str__(self) -> str:
         return f"{self.abbreviation} {self.value}"
@@ -64,7 +68,7 @@ class Explicit(Option):
     """
 
     abbreviation: str
-    value: str
+    value: str = ...
 
     def __str__(self) -> str:
         return f"{self.abbreviation}={self.value}"
