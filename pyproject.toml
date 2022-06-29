@@ -19,6 +19,7 @@ python-semantic-release = "^7.29.1"
 flake8 = "^4.0.1"
 black = "^22.3.0"
 pytest-cov = "^3.0.0"
+pytest-mock = "^3.8.1"
 
 [tool.poetry.urls]
 "Changelog" = "https://github.com/alexisbeaulieu97/pytcm/blob/main/CHANGELOG.md"
