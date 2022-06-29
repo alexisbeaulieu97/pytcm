@@ -1,5 +1,8 @@
 <!--next-version-placeholder-->
 
+## v0.5.3 (2022-06-29)
+
+
 ## v0.5.1 (2022-06-27)
 ### Fix
 * **options:** Added missing inheritance from base option class ([`bd56210`](https://github.com/alexisbeaulieu97/pytcm/commit/bd5621023f5c4a38fea58ce7428d7a04cb7c8828))
