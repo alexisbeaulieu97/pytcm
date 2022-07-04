@@ -1,5 +1,9 @@
 <!--next-version-placeholder-->
 
+## v0.5.4 (2022-06-29)
+### Fix
+* Options parsing ([`026cb04`](https://github.com/alexisbeaulieu97/pytcm/commit/026cb04ba23f0d4e1be023288ac42a6aaa7ee63e))
+
 ## v0.5.3 (2022-06-29)
 
 
