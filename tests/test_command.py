@@ -18,5 +18,5 @@ def test_command_opts_setter():
     opt = pytcm.Flag('--verbose')
     cmd.opts = [opt]
 
-    assert cmd.opts != [opt]
+    assert cmd.opts == [opt]
     assert cmd.opts[0].parse() == opt.parse()

@@ -17,17 +17,20 @@ class Option(ABC):
         raise NotImplementedError
 
 
+@dataclass
 class Flag(Option):
     """A boolean option
 
     e.g.: --verbose
     """
 
-    def __init__(self, abbreviation: str, value: bool = False) -> None:
-        self.abbreviation = abbreviation
-        super().__init__(value)
+    abbreviation: str
+    value: str = ...
 
     def parse(self) -> str:
+        if self.value is ...:
+            return ""
+
         return str(self) if self.value else ""
 
     def __str__(self) -> str:
