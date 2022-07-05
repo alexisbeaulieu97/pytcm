@@ -1,5 +1,9 @@
 <!--next-version-placeholder-->
 
+## v0.5.6 (2022-07-05)
+### Fix
+* **execute:** Execute now removes empty options from the list of options ([`56f95fe`](https://github.com/alexisbeaulieu97/pytcm/commit/56f95fe8fb4ab905d90d13433a2f6668d5942cb2))
+
 ## v0.5.5 (2022-07-04)
 ### Fix
 * Flag now allows for Ellipsis default value ([`7469058`](https://github.com/alexisbeaulieu97/pytcm/commit/746905802734d5a839b0521735d642f53ceb6e5e))
