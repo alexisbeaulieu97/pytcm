@@ -18,8 +18,9 @@ def execute(binary: str, opts: List[Option] = ..., cwd: str = ...) -> CommandRes
     """
     opts = opts if opts != ... else []
     cwd = cwd if cwd != ... else os.getcwd()
-    c = [binary]
-    c.extend([opt.parse() for opt in opts])
+    args = [binary]
+    args.extend([opt.parse() for opt in opts])
+    c = [arg for arg in filter(None, args)]
 
     proc = subprocess.Popen(c, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd)
     out, err = proc.communicate()
